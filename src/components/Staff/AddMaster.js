@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Form, Input, TextArea, Button, Dropdown } from "semantic-ui-react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import { API_HOST } from "../../config";
+import { postStaff } from "../../redux/actions/staff";
 
 const options = [
   { key: "angular", text: "Angular", value: "angular" },
@@ -31,6 +31,7 @@ function AddMaster() {
   const [masterInfo, setMasterInfo] = useState("");
   const [services, setServices] = useState([]);
   const [masterPicture, setMasterPicture] = useState(null);
+  const dispatch = useDispatch();
 
   const submitHandler = () => {
     const data = new FormData();
@@ -40,21 +41,12 @@ function AddMaster() {
     data.append("services", services);
     data.append("masterPicture", masterPicture);
 
-    axios
-      .post(`${API_HOST}/staff/add`, data)
-      .then(response => {
-        console.log(response);
-        setMasterName("");
-        setMasterInfo("");
-        setServices([]);
-        setMasterPicture(null);
-      })
-      .catch(({ response }) => {
-        console.error(
-          response.data.error.errmsg || response.data.error.message
-        );
-        alert("Oops, something went wrong!!!!!");
-      });
+    dispatch(postStaff(data));
+
+    setMasterName("");
+    setMasterInfo("");
+    setServices([]);
+    setMasterPicture(null);
   };
 
   return (

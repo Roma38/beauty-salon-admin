@@ -4,11 +4,14 @@
 
   .inline.field > label.ui.primary.button {
     color: white;
-    margin-bottom: 20px;
   }
 }
 
 .buttons-align-wrapper {
   text-align: center;
   margin-top: 50px;
+
+  .inline.field > label.ui.button {
+    margin-bottom: 20px;
+  }
 }

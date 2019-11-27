@@ -1,9 +1,13 @@
 import React from "react";
 import { Card, Image, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
+import { API_HOST } from "../../config";
 
 function MastersCards() {
+  const staff = useSelector(state => state.staff);
+  
   return (
     <Card.Group>
       <Card>
@@ -24,11 +28,7 @@ function MastersCards() {
         </Card.Content>
       </Card>
       <Card>
-        <Image
-          src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-          wrapped
-          ui={false}
-        />
+        <Image src={`${API_HOST}`} wrapped ui={false} />
         <Card.Content>
           <Card.Header>Elliot Baker</Card.Header>
           <Card.Description>

@@ -5,17 +5,15 @@ import { Route } from "react-router-dom";
 import MastersCards from "./MastersCards";
 import AddMaster from "./AddMaster";
 
-
 function StaffPage() {
   return (
     <>
-      <Header as="h1" textAlign="center">
-        Staff
-      </Header>
       <Route exact path="/staff/">
+        <Header as="h1" textAlign="center" content="Staff" />
         <MastersCards />
       </Route>
       <Route path="/staff/add">
+        <Header as="h1" textAlign="center" content="New master" />
         <AddMaster />
       </Route>
     </>

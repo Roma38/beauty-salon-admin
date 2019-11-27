@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Input,
-  TextArea,
-  Button,
-  Select,
-  Dropdown,
-  Label
-} from "semantic-ui-react";
-import { NavLink } from "react-router-dom";
+import { Form, Input, TextArea, Button, Dropdown } from "semantic-ui-react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
+import { API_HOST } from "../../config";
 
 const options = [
   { key: "angular", text: "Angular", value: "angular" },
@@ -35,13 +30,35 @@ function AddMaster() {
   const [masterName, setMasterName] = useState("");
   const [masterInfo, setMasterInfo] = useState("");
   const [services, setServices] = useState([]);
+  const [masterPicture, setMasterPicture] = useState(null);
 
   const submitHandler = () => {
-    
-  }
+    const data = new FormData();
+
+    data.append("name", masterName);
+    data.append("description", masterInfo);
+    data.append("services", services);
+    data.append("masterPicture", masterPicture);
+
+    axios
+      .post(`${API_HOST}/staff/add`, data)
+      .then(response => {
+        console.log(response);
+        setMasterName("");
+        setMasterInfo("");
+        setServices([]);
+        setMasterPicture(null);
+      })
+      .catch(({ response }) => {
+        console.error(
+          response.data.error.errmsg || response.data.error.message
+        );
+        alert("Oops, something went wrong!!!!!");
+      });
+  };
 
   return (
-    <Form onSubmit={submitHandler}>
+    <Form className="staff-form" onSubmit={submitHandler}>
       <Form.Field
         id="new-mater-name"
         control={Input}
@@ -49,6 +66,7 @@ function AddMaster() {
         placeholder="Name"
         value={masterName}
         onChange={(e, data) => setMasterName(data.value)}
+        required
       />
       <Form.Field
         id="new-mater-info"
@@ -69,17 +87,30 @@ function AddMaster() {
         value={services}
         onChange={(e, data) => setServices(data.value)}
       />
-      <Form.Field inline>
-        <Button
-          as="label"
-          basic
-          htmlFor="upload"
-          icon="upload"
-          content="Upload Picture"
+      <div className="buttons-align-wrapper">
+        <Form.Field inline>
+          <Button
+            as="label"
+            htmlFor="upload"
+            icon="upload"
+            content="Upload Picture"
+            primary={Boolean(masterPicture)}
+          />
+        </Form.Field>
+        <input
+          hidden
+          id="upload"
+          multiple
+          type="file"
+          onChange={e => setMasterPicture(e.target.files[0])}
         />
-      </Form.Field>
-      <input hidden id="upload" multiple type="file" />
-      <Button type="submit">Save</Button>
+        <Button type="submit" positive>
+          Save
+        </Button>
+        <Button as={Link} to={"/staff"} negative>
+          Cancel
+        </Button>
+      </div>
     </Form>
   );
 }

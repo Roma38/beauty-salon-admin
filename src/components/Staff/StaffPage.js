@@ -1,16 +1,28 @@
 import React from "react";
-import { Header } from "semantic-ui-react";
-import { Route } from "react-router-dom";
+import { Header, Card, Image } from "semantic-ui-react";
+import { Route, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import MastersCards from "./MastersCards";
+import MasterCard from "./MasterCard";
 import AddMaster from "./AddMaster";
+import { API_HOST } from "../../config";
 
 function StaffPage() {
+  const staff = useSelector(state => state.staff.items);
+
   return (
     <>
       <Route exact path="/staff/">
         <Header as="h1" textAlign="center" content="Staff" />
-        <MastersCards />
+        <Card.Group centered>
+          <Card to="/staff/add" as={Link}>
+            <Image src={`${API_HOST}/images/image.png`} />
+            <Card.Content header="Add Master" textAlign="center" />
+          </Card>
+          {staff.map(master => (
+            <MasterCard master={master} key={master.name} />
+          ))}
+        </Card.Group>
       </Route>
       <Route path="/staff/add">
         <Header as="h1" textAlign="center" content="New master" />

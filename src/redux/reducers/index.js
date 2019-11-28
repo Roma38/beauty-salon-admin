@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import { staffReduser } from "./staff";
+import { staffReduser as staff} from "./staff";
 
 const rootReduser = combineReducers({
-  staffReduser
+  staff
 });
 
 export default rootReduser;

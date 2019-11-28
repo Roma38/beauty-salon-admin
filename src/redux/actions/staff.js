@@ -40,7 +40,7 @@ export const postStaff = payload => dispatch => {
       dispatch(addStaffItem(data));
     })
     .catch(({ response }) => {
-      console.error(response.data);
+      console.error(response);
       alert("Oops, something went wrong!!!!!");
     });
 };

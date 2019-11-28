@@ -5,6 +5,8 @@ export const STAFF_LOADING = "STAFF_LOADING";
 export const STAFF_LOAD_SUCCEED = "STAFF_LOAD_SUCCEED";
 export const STAFF_LOAD_FAILED = "STAFF_LOAD_FAILED";
 export const ADD_STAFF_ITEM = "ADD_STAFF_ITEM";
+export const EDIT_STAFF_ITEM = "EDIT_STAFF_ITEM";
+export const DELETE_STAFF_ITEM = "DELETE_STAFF_ITEM";
 
 export const staffLoadStart = () => ({ type: STAFF_LOADING });
 
@@ -23,6 +25,16 @@ export const addStaffItem = payload => ({
   payload
 });
 
+export const editStaffItem = payload => ({
+  type: EDIT_STAFF_ITEM,
+  payload
+});
+
+export const deleteStaffItem = payload => ({
+  type: DELETE_STAFF_ITEM,
+  payload
+});
+
 export const getStaff = () => dispatch => {
   dispatch(staffLoadStart());
   axios
@@ -33,11 +45,36 @@ export const getStaff = () => dispatch => {
 
 export const postStaff = payload => dispatch => {
   axios
-    .post(`${API_HOST}/staff/add`, payload)
+    .post(`${API_HOST}/staff`, payload)
     .then(({ data }) => {
-      console.log(data);
       alert("Master successfully added!!!!!");
       dispatch(addStaffItem(data));
+    })
+    .catch(({ response }) => {
+      console.error(response);
+      alert("Oops, something went wrong!!!!!");
+    });
+};
+
+export const putStaff = payload => dispatch => {
+  axios
+    .put(`${API_HOST}/staff`, payload)
+    .then(({ data }) => {
+      alert("Master successfully updated!!!!!");
+      dispatch(editStaffItem(data));
+    })
+    .catch(({ response }) => {
+      console.error(response);
+      alert("Oops, something went wrong!!!!!");
+    });
+};
+
+export const deleteStaff = _id => dispatch => {
+  axios
+    .delete(`${API_HOST}/staff`, { data: { _id } })
+    .then(() => {
+      alert("Master successfully deleted!!!!!");
+      dispatch(deleteStaffItem({ _id }));
     })
     .catch(({ response }) => {
       console.error(response);

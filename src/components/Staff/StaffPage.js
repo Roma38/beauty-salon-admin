@@ -17,7 +17,7 @@ function StaffPage() {
         <Header as="h1" textAlign="center" content="Staff" />
         <Card.Group centered>
           <Card to="/staff/add" as={Link}>
-            <Image src={`${API_HOST}/images/image.png`} />
+            <Image src={`${API_HOST}/images/staff/image.png`} />
             <Card.Content header="Add Master" textAlign="center" />
           </Card>
           {staff.map(master => (

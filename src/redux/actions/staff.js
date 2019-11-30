@@ -10,9 +10,9 @@ export const DELETE_STAFF_ITEM = "DELETE_STAFF_ITEM";
 
 export const staffLoadStart = () => ({ type: STAFF_LOADING });
 
-export const staffLoadSucceed = staff => ({
+export const staffLoadSucceed = payload => ({
   type: STAFF_LOAD_SUCCEED,
-  payload: staff
+  payload
 });
 
 export const staffLoadFailed = error => ({

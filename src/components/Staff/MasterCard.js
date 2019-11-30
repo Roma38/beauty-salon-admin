@@ -14,7 +14,7 @@ function MastersCards({
   return (
     <Card>
       <Image
-        src={`${API_HOST}/images/${pictureURL || "image.png"}`}
+        src={`${API_HOST}/images/staff/${pictureURL || "image.png"}`}
         wrapped
         ui={false}
       />

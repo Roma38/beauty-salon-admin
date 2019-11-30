@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, TextArea, Button, Dropdown } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -50,27 +50,24 @@ function AddMaster() {
   };
 
   return (
-    <Form className="staff-form" onSubmit={submitHandler}>
-      <Form.Field
+    <Form className="add-edit-form" onSubmit={submitHandler}>
+      <Form.Input
         id="new-mater-name"
-        control={Input}
         label="Master Name:"
         placeholder="Name"
         value={masterName}
         onChange={(e, data) => setMasterName(data.value)}
         required
       />
-      <Form.Field
+      <Form.TextArea
         id="new-mater-info"
-        control={TextArea}
         label="About Master:"
         placeholder="Few words about master"
         value={masterInfo}
         onChange={(e, data) => setMasterInfo(data.value)}
       />
-      <Form.Field
+      <Form.Dropdown
         id="new-mater-services"
-        control={Dropdown}
         label="Services:"
         placeholder="Skills"
         multiple
@@ -92,7 +89,6 @@ function AddMaster() {
         <input
           hidden
           id="upload"
-          multiple
           type="file"
           onChange={e => setMasterPicture(e.target.files[0])}
         />

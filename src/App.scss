@@ -1,4 +1,4 @@
-.staff-form.ui.form {
+.add-edit-form.ui.form {
   max-width: 600px;
   margin: 60px auto;
 
@@ -14,4 +14,12 @@
   .inline.field > label.ui.button {
     margin-bottom: 20px;
   }
+}
+
+.number-input {
+  max-width: 100px;
+}
+
+.ui.form .inline.fields .field.price-checkbox {
+  margin-left: 65px;
 }

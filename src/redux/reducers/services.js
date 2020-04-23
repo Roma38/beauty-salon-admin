@@ -2,7 +2,7 @@ import {
   SERVICES_LOADING,
   SERVICES_LOAD_SUCCEED,
   SERVICES_LOAD_FAILED,
-  ADD_SERVICES_ITEM,
+  ADD_SERVICES_ITEM
   // EDIT_SERVICES_ITEM,
   // DELETE_SERVICES_ITEM
 } from "../actions/services.js";
@@ -20,7 +20,13 @@ export const servicesReduser = (state = initialState, { type, payload }) => {
       return { ...state, servicesLoadingState: "loading" };
     case SERVICES_LOAD_SUCCEED:
       const { items, categories } = payload;
-      return { ...state, servicesLoadingState: "succeed", items, categories };
+      return {
+        ...state,
+        error: null,
+        servicesLoadingState: "succeed",
+        items,
+        categories
+      };
     case SERVICES_LOAD_FAILED:
       return {
         ...initialState,

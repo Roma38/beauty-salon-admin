@@ -24,11 +24,11 @@ function ServicesPage() {
             />
           ))}
           <CategoryCard
-            category={"other"}
+            category="other"
             services={services.filter(
               service => !categories.includes(service.category)
             )}
-            key={"other"}
+            key="other"
           />
         </Card.Group>
       </Route>
@@ -36,10 +36,6 @@ function ServicesPage() {
         <Header as="h1" textAlign="center" content="Add Service" />
         <AddService />
       </Route>
-      {/* <Route path="/staff/edit/:id">
-        <Header as="h1" textAlign="center" content="Edit master info" />
-        <EditMaster />
-      </Route> */}
     </>
   );
 }

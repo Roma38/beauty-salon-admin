@@ -16,10 +16,10 @@ function CategoryCard({ category, services }) {
               {name}
             </List.Item>
           ))}
-          <List.Item as={Link} key={"add"} to={`/services/add/${category}`}>
-            Add service
-          </List.Item>
         </List>
+      </Card.Content>
+      <Card.Content extra>
+        <Link to={`/services/add/${category}`}>Add service</Link>
       </Card.Content>
     </Card>
   );

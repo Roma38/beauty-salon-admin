@@ -35,7 +35,6 @@ function AddMaster() {
 
   const submitHandler = () => {
     const data = new FormData();
-    console.log(JSON.stringify(services));
     data.append("name", masterName);
     data.append("description", masterInfo);
     data.append("services", JSON.stringify(services));

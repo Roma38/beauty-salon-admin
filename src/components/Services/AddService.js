@@ -10,9 +10,7 @@ function AddService() {
   const categories = useSelector(state => state.services.categories);
   const [serviceName, setServiceName] = useState("");
   const [serviceDescription, setServiceDescription] = useState("");
-  const [serviceCategory, setServiceCategory] = useState(
-    "other" ? "" : category
-  );
+  const [serviceCategory, setServiceCategory] = useState(category);
   const [servicePicture, setServicePicture] = useState(null);
   const [durationHours, setDurationHours] = useState(0);
   const [durationMinutes, setDurationMinutes] = useState(30);
@@ -35,7 +33,7 @@ function AddService() {
     data.append("description", serviceDescription);
     data.append("category", serviceCategory);
     data.append("duration", JSON.stringify([durationHours, durationMinutes]));
-    data.append("price", isPriceVaries ? servicePrice : "");
+    data.append("price", isPriceVaries ? "" : servicePrice);
     data.append("servicePicture", servicePicture);
 
     dispatch(postService(data));

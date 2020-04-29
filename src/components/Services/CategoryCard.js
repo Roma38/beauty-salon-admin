@@ -11,9 +11,9 @@ function CategoryCard({ category, services }) {
       <Card.Content>
         <Card.Header textAlign="center">{category}</Card.Header>
         <List as="ul">
-          {services.map(({ _id, name }) => (
-            <List.Item as={Link} key={_id} to={`/services/edit/${_id}`}>
-              {name}
+          {services.map((service) => (
+            <List.Item as={Link} key={service._id} to={{ pathname: `/services/edit/${service.name}`, state: { service } }}>
+              {service.name}
             </List.Item>
           ))}
         </List>
@@ -24,5 +24,12 @@ function CategoryCard({ category, services }) {
     </Card>
   );
 }
+
+// to = {{
+//   pathname: "/courses",
+//     search: "?sort=name",
+//       hash: "#the-hash",
+//         state: { fromDashboard: true }
+// }}
 
 export default CategoryCard;

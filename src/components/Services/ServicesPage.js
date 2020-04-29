@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 import CategoryCard from "./CategoryCard";
 import AddService from "./AddService";
+import EditService from "./EditService";
 
 function ServicesPage() {
   const { items: services, categories } = useSelector(state => state.services);
@@ -35,6 +36,10 @@ function ServicesPage() {
       <Route path="/services/add/:category">
         <Header as="h1" textAlign="center" content="Add Service" />
         <AddService />
+      </Route>
+      <Route path="/services/edit/:service">
+        <Header as="h1" textAlign="center" content="Edit Service" />
+        <EditService />
       </Route>
     </>
   );

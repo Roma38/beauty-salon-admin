@@ -56,28 +56,28 @@ export const postService = payload => dispatch => {
     });
 };
 
-// export const putService = payload => dispatch => {
-//   axios
-//     .put(`${API_HOST}/services`, payload)
-//     .then(({ data }) => {
-//       alert("Master successfully updated!!!!!");
-//       dispatch(editServiceItem(data));
-//     })
-//     .catch(({ response }) => {
-//       console.error(response);
-//       alert("Oops, something went wrong!!!!!");
-//     });
-// };
+export const putService = payload => dispatch => {
+  axios
+    .put(`${API_HOST}/services`, payload)
+    .then(({ data }) => {
+      alert("Service successfully updated!!!!!");
+      dispatch(editServiceItem(data));
+    })
+    .catch(({ response }) => {
+      console.error(response);
+      alert("Oops, something went wrong!!!!!");
+    });
+};
 
-// export const deleteService = _id => dispatch => {
-//   axios
-//     .delete(`${API_HOST}/services`, { data: { _id } })
-//     .then(() => {
-//       alert("Master successfully deleted!!!!!");
-//       dispatch(deleteServiceItem({ _id }));
-//     })
-//     .catch(({ response }) => {
-//       console.error(response);
-//       alert("Oops, something went wrong!!!!!");
-//     });
-// };
+export const deleteService = _id => dispatch => {
+  axios
+    .delete(`${API_HOST}/services`, { data: { _id } })
+    .then(() => {
+      alert("Service successfully deleted!!!!!");
+      dispatch(deleteServiceItem({ _id }));
+    })
+    .catch(({ response }) => {
+      console.error(response);
+      alert("Oops, something went wrong!!!!!");
+    });
+};

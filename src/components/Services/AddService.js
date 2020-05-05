@@ -8,14 +8,8 @@ import { postService } from "../../redux/actions/services";
 function AddService() {
   const { category } = useParams();
   const categories = useSelector(state => state.services.categories);
-  const [serviceName, setServiceName] = useState("");
-  const [serviceDescription, setServiceDescription] = useState("");
-  const [serviceCategory, setServiceCategory] = useState(category);
+  const [service, setService] = useState({ name: "", description: "", category, price: "", duration: 30 });
   const [servicePicture, setServicePicture] = useState(null);
-  const [durationHours, setDurationHours] = useState(0);
-  const [durationMinutes, setDurationMinutes] = useState(30);
-  const [servicePrice, setServicePrice] = useState("");
-  const [isPriceVaries, setIsPriceVaries] = useState(true);
   const dispatch = useDispatch();
 
   const dropdownOptions = [
@@ -29,23 +23,11 @@ function AddService() {
 
   const submitHandler = () => {
     const data = new FormData();
-    data.append("name", serviceName);
-    data.append("description", serviceDescription);
-    data.append("category", serviceCategory);
-    data.append("duration", JSON.stringify([durationHours, durationMinutes]));
-    data.append("price", isPriceVaries ? "" : servicePrice);
-    data.append("servicePicture", servicePicture);
-
+    data.append("service", JSON.stringify(service));
+    if (servicePicture) {
+      data.append("servicePicture", servicePicture);
+    }
     dispatch(postService(data));
-
-    setServiceName("");
-    setServiceDescription("");
-    setServiceCategory(category);
-    setServicePicture(null);
-    setDurationHours(0);
-    setDurationMinutes(30);
-    setServicePrice("");
-    setIsPriceVaries(true);
   };
 
   return (
@@ -55,24 +37,24 @@ function AddService() {
         control={Input}
         label="Service:"
         placeholder="Title"
-        value={serviceName}
-        onChange={(e, data) => setServiceName(data.value)}
+        value={service.name}
+        onChange={(e, data) => setService({ ...service, name: data.value })}
         required
       />
       <Form.TextArea
         id="new-service-info"
         label="Service Description:"
         placeholder="Describe service..."
-        value={serviceDescription}
-        onChange={(e, data) => setServiceDescription(data.value)}
+        value={service.description}
+        onChange={(e, data) => setService({ ...service, description: data.value })}
       />
       <Form.Dropdown
         id="new-service-category"
         label="Category:"
         selection
         options={dropdownOptions}
-        value={serviceCategory}
-        onChange={(e, data) => setServiceCategory(data.value)}
+        value={service.category}
+        onChange={(e, data) => setService({ ...service, category: data.value })}
       />
       <Form.Group widths="3" inline unstackable>
         <label>Duration:</label>
@@ -81,8 +63,8 @@ function AddService() {
           fluid
           type="number"
           label="Hours:"
-          value={durationHours}
-          onChange={(e, data) => setDurationHours(data.value)}
+          value={Math.floor(service.duration / 60)}
+          onChange={(e, data) => setService({ ...service, duration: service.duration % 60 + data.value * 60 })} //TODO: вынести в функцию
           min="0"
           max="7"
           required
@@ -92,8 +74,8 @@ function AddService() {
           fluid
           type="number"
           label="Minutes:"
-          value={durationMinutes}
-          onChange={(e, data) => setDurationMinutes(data.value)}
+          value={service.duration % 60}
+          onChange={(e, data) => setService({ ...service, duration: Math.floor(service.duration / 60) * 60 + Number(data.value) })} //TODO: вынести в функцию
           min="0"
           max="30"
           step="30"
@@ -106,20 +88,17 @@ function AddService() {
           className="number-input"
           placeholder="Varies"
           type="number"
-          label="hrn"
+          label="uah"
           labelPosition="right"
-          value={isPriceVaries ? "" : servicePrice}
-          onChange={(e, data) => {
-            setIsPriceVaries(false);
-            setServicePrice(data.value);
-          }}
+          value={service.price}
+          onChange={(e, data) => setService({ ...service, price: +data.value })}
           min="0"
         />
         <Form.Checkbox
           className="price-checkbox"
           label="Varies"
-          checked={isPriceVaries}
-          onChange={() => setIsPriceVaries(!isPriceVaries)}
+          checked={service.price === ""}
+          onChange={(e, data) => setService({ ...service, price: data.checked ? "" : 1 })}
         />
       </Form.Group>
       <div className="buttons-align-wrapper">
@@ -138,12 +117,8 @@ function AddService() {
           type="file"
           onChange={e => setServicePicture(e.target.files[0])}
         />
-        <Button type="submit" positive>
-          Save
-        </Button>
-        <Button as={Link} to={"/services"} negative>
-          Cancel
-        </Button>
+        <Button type="submit" positive>Save</Button>
+        <Button as={Link} to={"/services"} negative>Cancel</Button>
       </div>
     </Form>
   );

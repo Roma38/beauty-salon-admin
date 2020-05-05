@@ -12,7 +12,7 @@ function CategoryCard({ category, services }) {
         <Card.Header textAlign="center">{category}</Card.Header>
         <List as="ul">
           {services.map((service) => (
-            <List.Item as={Link} key={service._id} to={{ pathname: `/services/edit/${service.name}`, state: { service } }}>
+            <List.Item as={Link} key={service._id} to={{ pathname: `/services/edit/${service._id}`}}>
               {service.name}
             </List.Item>
           ))}

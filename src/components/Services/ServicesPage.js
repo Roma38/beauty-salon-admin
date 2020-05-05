@@ -37,7 +37,7 @@ function ServicesPage() {
         <Header as="h1" textAlign="center" content="Add Service" />
         <AddService />
       </Route>
-      <Route path="/services/edit/:service">
+      <Route path="/services/edit/:id">
         <Header as="h1" textAlign="center" content="Edit Service" />
         <EditService />
       </Route>

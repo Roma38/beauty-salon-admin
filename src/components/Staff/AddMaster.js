@@ -1,51 +1,23 @@
 import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { postStaff } from "../../redux/actions/staff";
 
-const options = [
-  { key: "angular", text: "Angular", value: "angular" },
-  { key: "css", text: "CSS", value: "css" },
-  { key: "design", text: "Graphic Design", value: "design" },
-  { key: "ember", text: "Ember", value: "ember" },
-  { key: "html", text: "HTML", value: "html" },
-  { key: "ia", text: "Information Architecture", value: "ia" },
-  { key: "javascript", text: "Javascript", value: "javascript" },
-  { key: "mech", text: "Mechanical Engineering", value: "mech" },
-  { key: "meteor", text: "Meteor", value: "meteor" },
-  { key: "node", text: "NodeJS", value: "node" },
-  { key: "plumbing", text: "Plumbing", value: "plumbing" },
-  { key: "python", text: "Python", value: "python" },
-  { key: "rails", text: "Rails", value: "rails" },
-  { key: "react", text: "React", value: "react" },
-  { key: "repair", text: "Kitchen Repair", value: "repair" },
-  { key: "ruby", text: "Ruby", value: "ruby" },
-  { key: "ui", text: "UI Design", value: "ui" },
-  { key: "ux", text: "User Experience", value: "ux" }
-];
-
 function AddMaster() {
-  const [masterName, setMasterName] = useState("");
-  const [masterInfo, setMasterInfo] = useState("");
-  const [services, setServices] = useState([]);
+  const services = useSelector(state => state.services.items);
+  const [master, setMaster] = useState({ name: "", description: "", services: [] });
   const [masterPicture, setMasterPicture] = useState(null);
   const dispatch = useDispatch();
 
   const submitHandler = () => {
     const data = new FormData();
-    data.append("name", masterName);
-    data.append("description", masterInfo);
-    data.append("services", JSON.stringify(services));
-    data.append("masterPicture", masterPicture);
-
+    data.append("master", JSON.stringify(master));
+    if (masterPicture) {
+      data.append("masterPicture", masterPicture);
+    }
     dispatch(postStaff(data));
-
-    setMasterName("");
-    setMasterInfo("");
-    setServices([]);
-    setMasterPicture(null);
   };
 
   return (
@@ -54,16 +26,16 @@ function AddMaster() {
         id="new-mater-name"
         label="Master Name:"
         placeholder="Name"
-        value={masterName}
-        onChange={(e, data) => setMasterName(data.value)}
+        value={master.name}
+        onChange={(e, data) => setMaster({ ...master, name: data.value })}
         required
       />
       <Form.TextArea
         id="new-mater-info"
         label="About Master:"
         placeholder="Few words about master"
-        value={masterInfo}
-        onChange={(e, data) => setMasterInfo(data.value)}
+        value={master.description}
+        onChange={(e, data) => setMaster({ ...master, description: data.value })}
       />
       <Form.Dropdown
         id="new-mater-services"
@@ -71,9 +43,9 @@ function AddMaster() {
         placeholder="Skills"
         multiple
         selection
-        options={options}
-        value={services}
-        onChange={(e, data) => setServices(data.value)}
+        options={services.map(({ _id, name }) => ({ key: _id, text: name, value: _id }))}
+        value={master.services}
+        onChange={(e, data) => setMaster({ ...master, services: data.value })}
       />
       <div className="buttons-align-wrapper">
         <Form.Field inline>

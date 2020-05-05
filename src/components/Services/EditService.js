@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Dimmer, Loader, Message } from "semantic-ui-react";
-import { Link, useLocation, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { putService } from "../../redux/actions/services";
@@ -43,15 +43,15 @@ function EditService() {
         <Dimmer active>
           <Loader>Loading</Loader>
         </Dimmer>}
-      {servicesLoadingState === "failed" && <Message negative>
-        <Message.Header>Looks like, something went wrong</Message.Header>
-        <p>{error.message}</p>
-      </Message>}
+      {servicesLoadingState === "failed" &&
+        <Message negative>
+          <Message.Header>Looks like, something went wrong</Message.Header>
+          <p>{error.message}</p>
+        </Message>}
       {servicesLoadingState === "succeed" &&
         <Form className="add-edit-form" onSubmit={submitHandler}>
           <Form.Input
             id="new-service-name"
-            control={Input}
             label="Service:"
             placeholder="Title"
             value={service.name}

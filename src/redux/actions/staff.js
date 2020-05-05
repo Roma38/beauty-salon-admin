@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_HOST } from "../../config";
+import { history } from "../../history";
 
 export const STAFF_LOADING = "STAFF_LOADING";
 export const STAFF_LOAD_SUCCEED = "STAFF_LOAD_SUCCEED";
@@ -47,8 +48,8 @@ export const postStaff = payload => dispatch => {
   axios
     .post(`${API_HOST}/staff`, payload)
     .then(({ data }) => {
-      alert("Master successfully added!!!!!");
       dispatch(addStaffItem(data));
+      history.push("/staff");
     })
     .catch(({ response }) => {
       console.error(response);
@@ -60,8 +61,8 @@ export const putStaff = payload => dispatch => {
   axios
     .put(`${API_HOST}/staff`, payload)
     .then(({ data }) => {
-      alert("Master successfully updated!!!!!");
       dispatch(editStaffItem(data));
+      history.push("/staff");
     })
     .catch(({ response }) => {
       console.error(response);
@@ -73,7 +74,6 @@ export const deleteStaff = _id => dispatch => {
   axios
     .delete(`${API_HOST}/staff`, { data: { _id } })
     .then(() => {
-      alert("Master successfully deleted!!!!!");
       dispatch(deleteStaffItem({ _id }));
     })
     .catch(({ response }) => {

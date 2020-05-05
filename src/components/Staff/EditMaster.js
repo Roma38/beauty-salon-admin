@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Dimmer, Loader, Message } from "semantic-ui-react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { putStaff } from "../../redux/actions/staff";
 
 function EditMaster() {
-  const history = useHistory();
   const { id } = useParams();
   const { items: masters, staffLoadingState, error } = useSelector(state => state.staff);
   const services = useSelector(state => state.services.items);

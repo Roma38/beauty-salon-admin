@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_HOST } from "../../config";
+import { history } from "../../history";
 
 export const SERVICES_LOADING = "SERVICES_LOADING";
 export const SERVICES_LOAD_SUCCEED = "SERVICES_LOAD_SUCCEED";
@@ -47,8 +48,8 @@ export const postService = payload => dispatch => {
   axios
     .post(`${API_HOST}/services`, payload)
     .then(({ data }) => {
-      alert("Service successfully added!!!!!");
       dispatch(addServiceItem(data));
+      history.push("/services");
     })
     .catch(({ response }) => {
       console.error(response);
@@ -60,8 +61,8 @@ export const putService = payload => dispatch => {
   axios
     .put(`${API_HOST}/services`, payload)
     .then(({ data }) => {
-      alert("Service successfully updated!!!!!");
       dispatch(editServiceItem(data));
+      history.push("/services");
     })
     .catch(({ response }) => {
       console.error(response);
@@ -73,7 +74,6 @@ export const deleteService = _id => dispatch => {
   axios
     .delete(`${API_HOST}/services`, { data: { _id } })//TODO: зачем data???
     .then(() => {
-      alert("Service successfully deleted!!!!!");
       dispatch(deleteServiceItem({ _id }));
     })
     .catch(({ response }) => {

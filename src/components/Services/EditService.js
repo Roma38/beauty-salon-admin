@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Dimmer, Loader, Message } from "semantic-ui-react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { putService } from "../../redux/actions/services";
 
 function EditService() {
-  const history = useHistory();
   const { id } = useParams();
   const { items: services, servicesLoadingState, categories, error } = useSelector(state => state.services);
   const [service, setService] = useState({ name: "", description: "", category: "", price: "", duration: 30 });
@@ -27,7 +26,7 @@ function EditService() {
     })),
     { key: "other", text: "other", value: "" }
   ];
-  //TODO: подумать нужна ли "other" категория
+  //TODO: подумать нужна ли "other" категория.
   const submitHandler = () => {
     const data = new FormData();
     data.append("service", JSON.stringify(service));

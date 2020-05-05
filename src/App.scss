@@ -23,3 +23,13 @@
 .ui.form .inline.fields .field.price-checkbox {
   margin-left: 65px;
 }
+
+.delete-icon {
+  float: right;
+  cursor: pointer;
+  color: grey;
+}
+
+.delete-icon:hover {
+  color: black;
+}

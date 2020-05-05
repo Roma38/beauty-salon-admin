@@ -1,10 +1,12 @@
 import React from "react";
-import { Card, List } from "semantic-ui-react";
+import { Card, List, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-//import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { deleteService } from "../../redux/actions/services"
 
 function CategoryCard({ category, services }) {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <Card>
@@ -12,8 +14,9 @@ function CategoryCard({ category, services }) {
         <Card.Header textAlign="center">{category}</Card.Header>
         <List as="ul">
           {services.map((service) => (
-            <List.Item as={Link} key={service._id} to={{ pathname: `/services/edit/${service._id}`}}>
-              {service.name}
+            <List.Item key={service._id}>
+              <Link to={`/services/edit/${service._id}`}>{service.name}</Link>
+              <Icon name='trash' className="delete-icon" onClick={() => dispatch(deleteService(service._id))} />
             </List.Item>
           ))}
         </List>
@@ -24,12 +27,5 @@ function CategoryCard({ category, services }) {
     </Card>
   );
 }
-
-// to = {{
-//   pathname: "/courses",
-//     search: "?sort=name",
-//       hash: "#the-hash",
-//         state: { fromDashboard: true }
-// }}
 
 export default CategoryCard;

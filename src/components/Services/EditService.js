@@ -16,7 +16,6 @@ function EditService() {
   useEffect(() => {
     if (servicesLoadingState === "succeed") {
       setService(services.find(({ _id }) => _id === id));
-      console.log(services.find(({ _id }) => _id === id))
     }
   }, [services, servicesLoadingState, id]);
 

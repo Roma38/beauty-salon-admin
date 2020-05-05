@@ -71,7 +71,7 @@ export const putService = payload => dispatch => {
 
 export const deleteService = _id => dispatch => {
   axios
-    .delete(`${API_HOST}/services`, { data: { _id } })
+    .delete(`${API_HOST}/services`, { data: { _id } })//TODO: зачем data???
     .then(() => {
       alert("Service successfully deleted!!!!!");
       dispatch(deleteServiceItem({ _id }));

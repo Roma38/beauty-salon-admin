@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import Header from "./components/Header";
 import StaffPage from "./components/Staff/StaffPage";
 import ServicesPage from "./components/Services/ServicesPage";
+import WorkingHoursPage from "./components/WorkingHoursPage";
 import { getStaff } from "./redux/actions/staff";
 import { getServices } from "./redux/actions/services";
 
@@ -30,6 +31,9 @@ function App() {
       </Route>
       <Route path="/services">
         <ServicesPage />
+      </Route>
+      <Route path="/working-hours">
+      <WorkingHoursPage />
       </Route>
     </Container>
   );

@@ -5,6 +5,8 @@ function WorkingHoursPage() {
   const [workDaysSchedule, setWorkDaysSchedule] = useState(["10:00", "19:00"]);
   const [saturdaySchedule, setSaturdaySchedule] = useState(["10:00", "18:00"]);
   const [sundaySchedule, setSundaySchedule] = useState(["10:00", "17:00"]);
+  const [isSaturdayDayOff, setIsSaturdayDayOff] = useState(false);
+  const [isSundayDayOff, setIsSundayDayOff] = useState(false);
 
   return (
     <Form>
@@ -39,6 +41,11 @@ function WorkingHoursPage() {
       </Form.Group>
 
       <Header as="h2" content="Saturday:" />
+      <Form.Checkbox
+        label="Day off"
+        checked={isSaturdayDayOff}
+        onChange={() => setIsSaturdayDayOff(!isSaturdayDayOff)}
+      />
       <Form.Group>
         <Form.Input
           value={saturdaySchedule[0]}
@@ -47,6 +54,7 @@ function WorkingHoursPage() {
           type='time'
           step={30 * 60}
           max={saturdaySchedule[1]}
+          disabled={isSaturdayDayOff}
         >
           <Label basic>From:</Label>
           <input />
@@ -59,6 +67,7 @@ function WorkingHoursPage() {
           type='time'
           step={30 * 60}
           min={saturdaySchedule[0]}
+          disabled={isSaturdayDayOff}
         >
           <Label basic>To:</Label>
           <input />
@@ -67,6 +76,11 @@ function WorkingHoursPage() {
       </Form.Group>
 
       <Header as="h2" content="Sunday:" />
+      <Form.Checkbox
+        label="Day off"
+        checked={isSundayDayOff}
+        onChange={() => setIsSundayDayOff(!isSundayDayOff)}
+      />
       <Form.Group>
         <Form.Input
           value={sundaySchedule[0]}
@@ -75,6 +89,7 @@ function WorkingHoursPage() {
           type='time'
           step={30 * 60}
           max={sundaySchedule[1]}
+          disabled={isSundayDayOff}
         >
           <Label basic>From:</Label>
           <input />
@@ -87,6 +102,7 @@ function WorkingHoursPage() {
           type='time'
           step={30 * 60}
           min={sundaySchedule[0]}
+          disabled={isSundayDayOff}
         >
           <Label basic>To:</Label>
           <input />

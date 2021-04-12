@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Header, Label, Form, Button } from "semantic-ui-react";
+import { Header, Label, Form, Button, Message } from "semantic-ui-react";
 
 function WorkingHoursPage() {
   const [workDaysSchedule, setWorkDaysSchedule] = useState(["10:00", "19:00"]);
@@ -11,6 +11,10 @@ function WorkingHoursPage() {
   return (
     <Form>
       <Header as="h1" textAlign="center" content="Working hours" />
+
+      <Message negative>
+        This feature not implemented yet :(
+      </Message>
 
       <Header as="h2" content="Monday - Friday:" />
       <Form.Group >

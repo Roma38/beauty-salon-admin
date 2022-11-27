@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Container } from "semantic-ui-react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import Header from "./components/Header";
@@ -26,15 +26,17 @@ function App() {
   return (
     <Container>
       <Header />
-      <Route path="/staff">
-        <StaffPage />
-      </Route>
-      <Route path="/services">
-        <ServicesPage />
-      </Route>
-      <Route path="/working-hours">
-      <WorkingHoursPage />
-      </Route>
+      <Switch>
+        <Route path="/staff">
+          <StaffPage />
+        </Route>
+        <Route path="/services">
+          <ServicesPage />
+        </Route>
+        <Route path="/working-hours">
+          <WorkingHoursPage />
+        </Route>
+      </Switch>
     </Container>
   );
 }
